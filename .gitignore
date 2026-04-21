@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+data/.cache/
+data/artists_enriched.json
+data/artists_tagged.json
+data/events.json
+data/faiss_index/
+.DS_Store

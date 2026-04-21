@@ -1,0 +1,71 @@
+{
+  "_meta": {
+    "note": "Starter seed. Target: 50-80 Boise-area artists. Fill in `bio` (1-3 sentences) per artist, then run `python scripts/resolve_spotify_ids.py` to populate `spotify_id` via Spotify search. Artists without a Spotify profile are excluded in v1.",
+    "origin_values": ["local", "regional", "touring"],
+    "schema": {
+      "id": "stable slug, kebab-case",
+      "name": "artist display name",
+      "bio": "1-3 sentence hand-written bio (used for zero-shot tags + embedding)",
+      "spotify_id": "populated by scripts/resolve_spotify_ids.py",
+      "origin": "one of local | regional | touring"
+    }
+  },
+  "artists": [
+    {
+      "id": "built-to-spill",
+      "name": "Built to Spill",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    },
+    {
+      "id": "youth-lagoon",
+      "name": "Youth Lagoon",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    },
+    {
+      "id": "trevor-powers",
+      "name": "Trevor Powers",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    },
+    {
+      "id": "doug-martsch",
+      "name": "Doug Martsch",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    },
+    {
+      "id": "eilen-jewell",
+      "name": "Eilen Jewell",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    },
+    {
+      "id": "magic-sword",
+      "name": "Magic Sword",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    },
+    {
+      "id": "finn-riggins",
+      "name": "Finn Riggins",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    },
+    {
+      "id": "the-very-most",
+      "name": "The Very Most",
+      "bio": "",
+      "spotify_id": null,
+      "origin": "local"
+    }
+  ]
+}
