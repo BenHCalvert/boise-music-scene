@@ -17,15 +17,20 @@ cp .env.example .env   # fill in SPOTIFY_CLIENT_ID / SECRET and BANDSINTOWN_APP_
 Later phases will add:
 
 ```bash
-python scripts/resolve_spotify_ids.py   # Phase 1 helper — populate spotify_id fields
-python scripts/run_all.py               # Phase 2+: ingest → classify → embed
-python app.py                           # Phase 5: Gradio UI
+python scripts/resolve_spotify_ids.py --write   # populate spotify_id via Spotify search
+python scripts/run_ingest.py                    # Phase 2: MB + Last.fm + Spotify + Bandsintown
+# python scripts/run_all.py                     # Phase 3+: tag → embed (coming)
+# python app.py                                 # Phase 5: Gradio UI (coming)
 ```
 
 ## Data sources
 
-- **Spotify Web API** — artist metadata, genres, audio features (avg over top tracks).
-- **Bandsintown Public API** — upcoming shows by artist.
+The project separates **ML-ingested sources** (fed into classification + embeddings) from **UI-only sources** (rendered in the app but never ingested into models).
+
+- **MusicBrainz** (CC0, ML-safe) — artist area, country, genre tags.
+- **Last.fm API** (CC-BY-SA bios, attribution shown in UI) — artist bio summary + top tags. ML side.
+- **Spotify Web API** — UI only. Fetches top-track preview, artist image, and the external Spotify link for the artist card. **Not used for classification or embeddings**, per Spotify's developer ToS prohibiting use of Spotify content for ML training.
+- **Bandsintown Public API** — upcoming shows by artist name.
 
 ## Models
 
@@ -43,9 +48,9 @@ python app.py                           # Phase 5: Gradio UI
 
 ```
 data/             seed / enriched / tagged artist JSON, FAISS index
-ingest/           spotify.py, bandsintown.py
-classify/         zeroshot.py, audio_rules.py, treefort_rules.py, tagger.py
+ingest/           spotify.py (UI), musicbrainz.py, lastfm.py, bandsintown.py
+classify/         zeroshot.py, treefort_rules.py, tagger.py
 embeddings/       index.py, query.py
-scripts/          run_all.py, resolve_spotify_ids.py
+scripts/          run_ingest.py, resolve_spotify_ids.py, run_all.py
 app.py            Gradio UI (Phase 5)
 ```
