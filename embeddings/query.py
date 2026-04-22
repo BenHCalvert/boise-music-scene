@@ -57,7 +57,7 @@ def search(text: str, k: int = 10) -> list[Hit]:
     import numpy as np
 
     vec = model.encode([text], normalize_embeddings=True).astype("float32")
-    k = min(k, index.ntotal)
+    k = int(min(k, index.ntotal))
     scores, idx = index.search(vec, k)
     hits: list[Hit] = []
     for score, row_id in zip(scores[0].tolist(), idx[0].tolist()):

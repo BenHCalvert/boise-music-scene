@@ -86,7 +86,7 @@ def do_search(query: str, k: int) -> str:
     if not query.strip():
         return "_enter a query above_"
     try:
-        hits = search(query, k=k)
+        hits = search(query, k=int(k))
     except FileNotFoundError as exc:
         return f"**Index not built.** {exc}"
     if not hits:
@@ -202,15 +202,13 @@ def build() -> gr.Blocks:
 
         with gr.Tab("Artist detail"):
             names = artist_names()
+            initial_header, initial_recs = artist_detail(names[0]) if names else ("_no artists indexed_", "")
             picker = gr.Dropdown(choices=names, label="artist", value=names[0] if names else None)
-            header = gr.Markdown()
-            recs = gr.Markdown()
+            header = gr.Markdown(value=initial_header)
+            recs = gr.Markdown(value=initial_recs)
             picker.change(artist_detail, inputs=picker, outputs=[header, recs])
-            if names:
-                header_val, recs_val = artist_detail(names[0])
-                header.value = header_val
-                recs.value = recs_val
 
+    demo.queue(default_concurrency_limit=4)
     return demo
 
 
