@@ -4,7 +4,7 @@ A Hugging Face pipeline that ingests Boise-area artist and event data, tags arti
 
 ## Status
 
-Phase 1 of 6 — scaffold + seed dataset.
+Phase 5 of 6 — Gradio UI built, ready to deploy once data artifacts are generated.
 
 ## Quickstart
 
@@ -18,10 +18,16 @@ Later phases will add:
 
 ```bash
 python scripts/resolve_spotify_ids.py --write   # populate spotify_id via Spotify search
-python scripts/run_ingest.py                    # Phase 2: MB + Last.fm + Spotify + Bandsintown
-# python scripts/run_all.py                     # Phase 3+: tag → embed (coming)
-# python app.py                                 # Phase 5: Gradio UI (coming)
+python scripts/run_all.py                       # ingest → tag → index (all phases)
+python app.py                                   # launch the Gradio UI locally
 ```
+
+## Deploying to HF Spaces
+
+1. Run `python scripts/run_all.py` locally to generate `data/artists_tagged.json`, `data/events.json`, and `data/faiss_index/`.
+2. Commit the generated data artifacts (the `.gitignore` excludes them by default — remove or comment those lines before committing).
+3. Create a new Gradio Space on Hugging Face, point it at this repo, and copy `README_SPACE.md` into the Space's `README.md` (or use Space settings to set the frontmatter).
+4. Push; Spaces will `pip install -r requirements.txt` and run `app.py`.
 
 ## Data sources
 
